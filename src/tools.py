@@ -1,4 +1,4 @@
-def date_to_numerical_year(date_str):
+def date_to_numerical_year(date_str: str) -> float:
     split = date_str.split("-")
 
     year = int(split[2])

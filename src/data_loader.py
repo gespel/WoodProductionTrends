@@ -1,10 +1,10 @@
 import pandas as pd
 
 class DataLoader:
-    def __init__(self):
+    def __init__(self) -> DataLoader:
         pass
     
-    def load_overall_production(self, file_path: str):
+    def load_overall_production(self, file_path: str) -> pd.DataFrame | None:
         try:
             self.data = pd.read_csv(file_path, sep=';', decimal=',')
         except Exception as e:
@@ -16,4 +16,22 @@ class DataLoader:
             filtered["value"] = pd.to_numeric(filtered["value"], errors='coerce')
             return filtered
         return None
+    
+    def load_wood_production_by_type(self, file_path: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame] | None:
+        try:
+            self.data = pd.read_csv(file_path, sep=';', decimal=',')
+        except Exception as e:
+            print(f"Error loading data: {e}")
 
+        if self.data is not None:
+            filtered = self.data[self.data["2_variable_attribute_label"] != "Insgesamt"].copy()
+            filtered["time"] = pd.to_numeric(filtered["time"], errors='coerce')
+            filtered["value"] = pd.to_numeric(filtered["value"], errors='coerce')
+
+            beech_and_other_hardood = filtered[filtered["2_variable_attribute_label"] == "Buche und sonstiges Laubholz"].sort_values("time")
+            jaw_and_larch = filtered[filtered["2_variable_attribute_label"] == "Kiefer und Lärche"].sort_values("time")
+            oak_and_red_oak = filtered[filtered["2_variable_attribute_label"] == "Eiche und Roteiche"].sort_values("time")
+            spruce_fir_douglas_fir_and_other_softwood = filtered[filtered["2_variable_attribute_label"] == "Fichte, Tanne, Douglasie und sonstiges Nadelholz"].sort_values("time")
+
+            return beech_and_other_hardood, jaw_and_larch, oak_and_red_oak, spruce_fir_douglas_fir_and_other_softwood
+        return None
