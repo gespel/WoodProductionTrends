@@ -35,3 +35,21 @@ class DataLoader:
 
             return beech_and_other_hardood, jaw_and_larch, oak_and_red_oak, spruce_fir_douglas_fir_and_other_softwood
         return None
+    
+    def load_spruce_usage(self, file_path: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame] | None:
+        try:
+            self.data = pd.read_csv(file_path, sep=';', decimal=',')
+        except Exception as e:
+            print(f"Error loading data: {e}")
+
+        if self.data is not None:
+            filtered = self.data.copy()
+            filtered["time"] = pd.to_numeric(filtered["time"], errors='coerce')
+            filtered["value"] = pd.to_numeric(filtered["value"], errors='coerce')
+
+            stammholz = filtered[filtered["usage_type"] == "Stammholz"].sort_values("time")
+            industrieholz = filtered[filtered["usage_type"] == "Industrieholz"].sort_values("time")
+            energieholz = filtered[filtered["usage_type"] == "Energieholz"].sort_values("time")
+            unbenutzt = filtered[filtered["usage_type"] == "nicht verwertet"].sort_values("time")
+            return stammholz, industrieholz, energieholz, unbenutzt
+        return None
