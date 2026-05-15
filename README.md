@@ -13,10 +13,15 @@ To run the analysis, you can use the provided Jupyter Notebook in the `src` dire
 ```bash
 pip install -r requirements.txt
 ```
+It is recommended to use a virtual environment to manage dependencies for this project. You can create and activate a virtual environment using the following commands:
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
 ## License
 This project is licensed under the MIT License. See `LICENSE`.
 ## Contact
-For any questions or suggestions regarding this project, please feel free to contact the author at heimbrodt@uni-potsdam.de. This project is part of the course "Research Software Engineering" at the University of Potsdam, supervised by Prof. Dr. Anna Lena Lamprecht.
+For any questions or suggestions regarding this project, please feel free to contact the author (Sten Heimbrodt, B.Sc.) at heimbrodt@uni-potsdam.de. This project is part of the course "Research Software Engineering" at the University of Potsdam, supervised by Prof. Dr. Anna Lena Lamprecht.
 
 ## Contributing
 Contributions to this project are welcome! If you have any ideas for improvements or would like to contribute, please fork the repository and submit a pull request. Please ensure that your contributions adhere to the coding standards and include appropriate tests if necessary.
