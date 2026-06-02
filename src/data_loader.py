@@ -4,6 +4,9 @@ class DataLoader:
     def __init__(self) -> DataLoader:
         pass
     
+    # The following methods load the data from the specified file path and return filtered DataFrames based on the criteria defined in the original code.
+    # Each method handles potential exceptions during the loading process and ensures that the data is properly filtered and sorted before being returned.
+
     def load_overall_production(self, file_path: str) -> pd.DataFrame | None:
         try:
             self.data = pd.read_csv(file_path, sep=';', decimal=',')
@@ -51,5 +54,7 @@ class DataLoader:
             industrieholz = filtered[filtered["usage_type"] == "Industrieholz"].sort_values("time")
             energieholz = filtered[filtered["usage_type"] == "Energieholz"].sort_values("time")
             unbenutzt = filtered[filtered["usage_type"] == "nicht verwertet"].sort_values("time")
+            
             return stammholz, industrieholz, energieholz, unbenutzt
         return None
+    
